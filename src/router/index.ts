@@ -1,19 +1,27 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import Register from '@/public/Register.vue';
+import Login from '@/public/Login.vue';
+import Secure from '@/secure/Secure.vue';
+import Dashboard from '@/secure/dashboard/Dashboard.vue';
+import Users from '@/secure/users/Users.vue';
+import UsersCreate from '@/secure/users/UsersCreate.vue';
+import UsersEdit from '@/secure/users/UsersEdit.vue';
+import Roles from "@/secure/roles/Roles.vue";
 
 const routes: Array<RouteRecordRaw> = [
+  { path: '/register', component: Register },
+  { path: '/login', component: Login },
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '',
+    component: Secure,
+    children: [
+      {path: '', redirect: '/dashboard'},
+      {path: '/dashboard', component: Dashboard},
+      {path: '/users', component: Users},
+      {path: '/users/create', component: UsersCreate},
+      {path: '/users/:id/edit', component: UsersEdit},
+      {path: '/roles', component: Roles},
+    ]
   }
 ]
 
